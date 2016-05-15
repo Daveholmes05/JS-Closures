@@ -12,10 +12,10 @@ var outer = function(){
 // Invoke outer saving the return value into another variable called 'inner'.
 
 // Code Here
-
+inner = outer();
 
 //Once you do that, invoke inner.
-
+inner();
   //Code Here
 
 
@@ -25,7 +25,7 @@ var outer = function(){
 
 var callFriend = function(){
   var friend = 'Jake';
-  function callF(number){
+  function callF(friend, number){
     return 'Calling ' + friend + ' at ' + number;
   }
   return callF;
@@ -34,8 +34,10 @@ var callFriend = function(){
 
 // Above you're given a callFriend function that returns another function.
 // Create a makeCall function that when invoked logs  'Calling Jake at 435-215-9248' in your console.
-
+function makeCall() {
+  console.log('Calling' + ' ' + friend + ' ' + 'at' + ' ' + number);
   //Code Here
+}
 
 
 
@@ -51,14 +53,19 @@ var callFriend = function(){
   Write a function called makeCounter that makes the following code work properly.
 */
 
-//Code Here
+function makeCounter() {
+  var num = 1;
+  return function() {
+    return num++;
+  }
+}
 
 //Uncomment this once you make your function
-//   var count = makeCounter();
-//   count(); // 1
-//   count(); // 2
-//   count(); // 3
-//   count(); // 4
+  var count = makeCounter();
+  count(); // 1
+  count(); // 2
+  count(); // 3
+  count(); // 4
 
 
 
@@ -72,9 +79,13 @@ var callFriend = function(){
 // You will need to use the module pattern to achieve this.
 
 function counterFactory(value) {
-
+  return function inc() {
+    value++
+  }
   // Code here.
-
+  return function dec() {
+    value--
+  }
 
   return {
   }
@@ -92,24 +103,25 @@ counter = counterFactory(10);
 // Inside the motivation function create another function called message that will return 'You're doing awesome, keep it up firstname lastname.'
 
   function motivation(firstname, lastname){
-
+    function message() {
     var welcomeText = 'You\'re doing awesome, keep it up ';
-
-    // code message function here.
-
+    
+      return welcomeText + firstname + ' ' + lastname;
+    }
 
     //Uncommment this to return the value of your invoked message function
 
-    //return message()
+    return message()
   }
 
-  motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
+  // motivation('Billy', 'Bob'); // 'Your doing awesome keep it up Billy Bob
 
 
 
 //////////////////PROBLEM 6////////////////////
 
-// Inside the return create a publicMethod property that is a function that invokes privateMethod. After you create the privateMethod
+// Inside the return create a publicMethod property that is a function that invokes privateMethod.
+// After you create the privateMethod
 // Invoke it by calling module.publicMethod(); outside the module scope
 
   var module = (function() {
@@ -126,13 +138,15 @@ counter = counterFactory(10);
     // Anything that is being returned is made public and can be invoked from outside our lexical scope
 
     return {
-      // Code here.
+      publicMethod: function() {
+        privateMethod();
+      }
     };
 
-  })();
+  });
 
 //Uncomment this after you create your public method
-//   module.publicMethod();
+  module.publicMethod();
 
 
 
